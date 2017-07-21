@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebApplication23.Models.Classes.CourseClass>
+
+@{
+    ViewBag.Title = "Kurser";
+}
+
+<style>
+    h2, h4{
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    hr {
+        margin-bottom:0px;
+    }
+</style> 
+
+@foreach (var item in Model)
+{
+    <div class="container-fluid">
+        <div class="col-md-8">
+            <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+            @Html.DisplayFor(modelItem => item.Description)
+            <br />
+            @Html.DisplayFor(modelItem => item.StartTime) -
+            @Html.DisplayFor(modelItem => item.EndTime)
+            <br />
+            @if (User.IsInRole("Teacher"))
+            {
+                @Html.ActionLink("Ändra", "Edit", new { id = item.Id }) <span>|</span>
+                @Html.ActionLink("Ta bort", "Delete", new { id = item.Id }) <span>|</span>
+            }
+            @Html.ActionLink("Läs mer", "Details", new { id = item.Id }) <span>|</span>
+            @if (item.AttendingStudents.FirstOrDefault(g => g.Email == User.Identity.Name) != null)
+            {
+                @Html.ActionLink("Lämna", "CourseToggle", new { id = item.Id })
+            }
+            else
+            {
+                @Html.ActionLink("Ansök", "CourseToggle", new { id = item.Id })
+            }
+        </div>
+
+        <div class="col-md-4" id="deltagarlista">
+            <h4>Deltagarlista</h4>
+            @foreach (var attendingStudent in item.AttendingStudents)
+            {
+                @attendingStudent.FullName
+                <br />
+            }
+        </div>
+    </div>
+    <hr class="container" />
+}
+
+<div class="container-fluid col-md-12">
+    <p>
+        @Html.ActionLink("Skapa ny", "Create")
+    </p>
+</div>

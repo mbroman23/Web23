@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - R2DEV2</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+    <style>
+        #adminPanel {
+            background-color: #e7e7e7;
+            margin-top: -5px;
+            min-height: 43px;
+        }
+
+        .navbar-brand {
+            background-color: rgb(214, 0, 0);
+            color: white;
+            font-weight: bolder;
+            font-size: 28px;
+        }
+
+        ul {
+            margin-top: 2px;
+        }
+    </style>
+
+    <div class="navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("LEXICON", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div id="adminPanel" class="container-fluid">
+        <!--LÄGG TILL KONTROLL FÖR LÄRARE-->
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="" data-toggle="tab" aria-expanded="true">Hem</a></li>
+                <li class="disabled"><a>Granska</a></li>
+                <li class="disabled"><a>Schema</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Skapa <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#skapa1" data-toggle="tab">Lärare</a></li>
+                        <li><a href="#skapa2" data-toggle="tab">Elev</a></li>
+                        <li><a href="#skapa3" data-toggle="tab">Kurs</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <hr class="container-fluid" />
+    <footer class="container">
+        <p>&copy; @DateTime.Now.Year - R2DEV2</p>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

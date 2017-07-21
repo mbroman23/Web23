@@ -1,0 +1,95 @@
+﻿@using WebApplication23.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Logga in";
+    Layout = null;
+    @Styles.Render("~/Content/css")
+}
+
+<style>
+    body {
+        background: black;
+        background-image: url('../../Bilder/lexicon.png');
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+    div.well {
+        height: 250px;
+    }
+
+    input {
+        max-width: initial;
+    }
+
+    .Absolute-Center {
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+        .Absolute-Center.is-Responsive {
+            width: 50%;
+            height: 50%;
+            min-height: 480px;
+            max-height: 544px;
+            min-width: 544px;
+            max-width: 544px;
+            padding: 40px;
+            background-color: white;
+        }
+
+    #logo-container {
+        margin: auto;
+        margin-bottom: 15px;
+        width: 100%;
+        height: 160px;
+        background-image: url('../../Bilder/logo-lexicon.gif');
+        background-size: auto;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="Absolute-Center is-Responsive">
+            <div id="logo-container"></div>
+            <div class="col-md-12">
+                <section id="loginForm">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-exclamation-sign"></i></span>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-def btn-block">Logga in</button>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <a href="#">Glömt lösenord? </a>&nbsp;| &nbsp;<a href="#"> Hjälp</a>
+                        </div>
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }) <br />
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
